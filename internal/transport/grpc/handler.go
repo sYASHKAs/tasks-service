@@ -123,10 +123,6 @@ func (h *Handler) UpdateTask(ctx context.Context, req *taskpb.UpdateTaskRequest)
 }
 
 func (h *Handler) DeleteTask(ctx context.Context, req *taskpb.DeleteTaskRequest) (*emptypb.Empty, error) {
-	if _, err := h.userClient.GetUser(ctx, &userpb.GetUserRequest{Id: req.UserId}); err != nil {
-		return nil, fmt.Errorf("user %d not found: %w", req.UserId, err)
-	}
-
 	err := h.svc.DeleteTask(req.GetId())
 	if err != nil {
 		return nil, err
